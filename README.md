@@ -15,17 +15,19 @@ con el spec planteado**.
    Se entrega en dos versiones: `spec-python/` y `spec-.net/`.
 3. Desarrollar en los forks.
 
-## El reto se desarrolla con React y PHP (Laravel)
+## El reto se desarrolla con React y PHP (Arquitectura Hexagonal)
 
 El spec está escrito para Python y para .NET, pero el reto **no** se hace en esos lenguajes:
 
-| Capa | Tecnología del reto |
-|---|---|
-| Frontend | React |
-| Backend | PHP con Laravel |
+| Capa | Tecnología del reto | Justificación Arquitectónica |
+|---|---|---|
+| Frontend | React 18 (Vite 5) | SPA con gestión de préstamos, catálogo y reportes |
+| Backend | PHP 8.2 (Arquitectura Hexagonal) | Dominio puro sin dependencias (ver [ADR-005](spec-python/adr/adr-005-sustitucion-framework-hexagonal.md)) |
+| BD | PostgreSQL 16+ | Esquema `library`, control de concurrencia y restricciones CHECK |
 
-Lo que el spec define sobre el negocio —historias, criterios de aceptación, reglas, contrato de la
-API, modelo de datos— se respeta. Lo que define sobre la tecnología se traduce a React y Laravel.
+Lo que el spec define sobre el negocio —historias, criterios de aceptación, reglas, contrato de la API, modelo de datos— se respeta al 100%. Lo que define sobre la tecnología se traduce a React y PHP nativo bajo arquitectura hexagonal.
+
+> **Documento Maestro de la Solución:** Consulta [`ANALISIS-ARQUITECTURA-PLAN.md`](ANALISIS-ARQUITECTURA-PLAN.md) para ver la matriz de trazabilidad, diagramas Mermaid de arquitectura y secuencia, y el desglose de cumplimiento de cada criterio.
 
 ## La prueba no consiste en escribir el código
 
