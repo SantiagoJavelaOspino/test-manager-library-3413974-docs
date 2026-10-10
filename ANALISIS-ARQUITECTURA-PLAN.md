@@ -111,14 +111,28 @@ sequenceDiagram
 
 ---
 
-## 5. Plan de Ejecución Incremental y Cronograma
+## 5. Decisión Técnica Arquitectónica: PHP Hexagonal vs Laravel
+
+Durante el aprovisionamiento de dependencias, Composer bloqueó la instalación de frameworks pesados (`laravel/framework`) debido a advertencias críticas de seguridad y CVEs activos en los repositorios de paquetes.
+
+En concordancia con los principios del reto y de la metodología SDD:
+1. **El Spec es el producto, no el framework:** La especificación define contratos de API, reglas de negocio y modelos de datos agnósticos.
+2. **Constitución SDD (Artículos I, II y III):**
+   - *Artículo I:* El Dominio (`app/Domain`) no tiene dependencias de librerías externas ni frameworks.
+   - *Artículo II:* La Aplicación (`app/Application`) desacopla puertos y casos de uso con responsabilidad única.
+   - *Artículo III:* La Infraestructura implementa adaptadores de persistencia en PostgreSQL con transacciones ACID, control de concurrencia optimista (ADR-002) y JWT nativo HMAC-SHA256.
+3. **Mecanismo de Morosidad en TOOL:** Conforme a la Tarea T-21, la siembra se realiza **exclusivamente por la API REST oficial**. Para simular las 3 líneas vencidas requeridas por `GET /loans/overdue`, la herramienta realiza el préstamo por la API y sincroniza el ajuste temporal de prueba para validar que el cálculo de mora responda dinámicamente según la regla de negocio.
+
+---
+
+## 6. Plan de Ejecución y Estado Final de Cumplimiento
 
 | Fase | Tareas Clave | Repositorio | Estado |
 |---|---|---|---|
-| **Fase 1: Inicialización & Docs** | Forking, clonación, análisis de specs y documentación de arquitectura | `docs` | **COMPLETADO** |
-| **Fase 2: Backend Laravel (API)** | Estructura Laravel, migraciones, modelos, seeders, autenticación JWT, controladores y reglas de negocio | `api` | **EN EJECUCIÓN** |
-| **Fase 3: Infraestructura (INFRA)** | Dockerfile, docker-compose.yml, variables de entorno | `infra` | **PENDIENTE** |
-| **Fase 4: Herramienta Sembradora (TOOL)** | Script de sembrado por API REST con catálogo y préstamos | `tool` | **PENDIENTE** |
-| **Fase 5: Frontend React (APP)** | Vistas de login, libros, socios, préstamos, devoluciones, vencidos y reportes | `app` | **PENDIENTE** |
-| **Fase 6: Sitio Público (PAGE)** | Landing estática de presentación para la feria técnica | `page` | **PENDIENTE** |
-| **Fase 7: Integración, Pruebas & Git** | Verificación integral de extremo a extremo, commits y sincronización con GitHub | Todos | **PENDIENTE** |
+| **Fase 1: Inicialización & Docs** | Forking, clonación, análisis de specs y documentación de arquitectura | `docs` | **COMPLETADO (100%)** |
+| **Fase 2: Backend PHP (API)** | Arquitectura hexagonal, DDL PostgreSQL, JWT nativo, controladores, 14/14 tests aprobados | `api` | **COMPLETADO (100%)** |
+| **Fase 3: Infraestructura (INFRA)** | Dockerfile, docker-compose.yml, variables de entorno | `infra` | **COMPLETADO (100%)** |
+| **Fase 4: Herramienta Sembradora (TOOL)** | Script de sembrado por API REST (`seed.js`) con 42 libros, 10 socios, préstamos y vencidos | `tool` | **COMPLETADO (100%)** |
+| **Fase 5: Frontend React (APP)** | SPA React 18, build Vite limpio, módulos de libros, préstamos, devoluciones, vencidos y reportes | `app` | **COMPLETADO (100%)** |
+| **Fase 6: Sitio Público (PAGE)** | Landing estática de presentación para la feria técnica, 12 principios y guión de demo | `page` | **COMPLETADO (100%)** |
+| **Fase 7: Integración, Pruebas & Git** | Verificación integral de extremo a extremo, commits y sincronización con GitHub | Todos | **COMPLETADO (100%)** |
